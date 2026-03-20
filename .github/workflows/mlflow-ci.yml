@@ -1,0 +1,39 @@
+name: MLflow Server Health Check
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install mlflow requests
+
+      - name: Check MLflow tracking server
+        env:
+          MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI }}
+        run: |
+          python -c "
+          import mlflow
+          import sys
+          client = mlflow.tracking.MlflowClient()
+          experiments = client.search_experiments()
+          print(f'MLflow server healthy. Experiments found: {len(experiments)}')
+          sys.exit(0)
+          "
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "MLflow server health check failed - investigate tracking server"
