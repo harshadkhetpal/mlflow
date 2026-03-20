@@ -1,3 +1,18 @@
+## 🧑‍💻 My Fork — Harshad Khetpal (DevOps / MLOps Engineer)
+
+I use this fork of MLflow as the **central experiment tracking and model registry** for all ML projects. Integrated across multiple training pipelines and CI/CD workflows.
+
+### My Setup
+- Self-hosted MLflow Tracking Server on Kubernetes with PostgreSQL backend
+- Artifact store on Google Cloud Storage with IAM-based access control
+- Automated model promotion pipeline: Staging → Production via GitHub Actions
+- Custom MLflow plugins for logging GPU metrics and Docker image metadata
+
+### Why I forked this
+Working on custom model flavors for ONNX-optimized models and extending the model signature validation for stricter schema enforcement in production pipelines.
+
+---
+
 <h1 align="center" style="border-bottom: none">
     <a href="https://mlflow.org/">
         <img alt="MLflow logo" src="https://raw.githubusercontent.com/mlflow/mlflow/refs/heads/master/assets/logo.svg" width="200" />
